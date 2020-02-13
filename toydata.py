@@ -2,7 +2,7 @@ import numpy as np
 N_SAMPLES = 50
 
 def generate_ds_gauss():
-    mean = np.array([0, 0])
+    mean = np.array([-2, 2])
     cov = np.array([[1, 0.7], [0.7, 1]])  
     return sample_gauss(N_SAMPLES, mean, cov)
 
