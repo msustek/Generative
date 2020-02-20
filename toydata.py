@@ -31,7 +31,7 @@ def pdf_gauss(x, mu, cov):
     x = np.atleast_2d(x) - mu
     return np.exp(-0.5*(len(mu)*np.log(2 * np.pi) + np.linalg.slogdet(cov)[1] + np.sum(x.dot(np.linalg.inv(cov)) * x, axis=1)))
 
-def sample_gauss(N, mu, cov):
+def sample_gauss(N, mu = np.array([0,0]), cov = np.eye(2)):
     return np.random.multivariate_normal(mu, cov, N).T
 
 
