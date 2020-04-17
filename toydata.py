@@ -1,6 +1,29 @@
 import numpy as np
-N_SAMPLES = 50
+import os
+from pathlib import Path
+import numpy as np
 
+SAVE_DS_DIR = os.path.join("dataset", "toy")
+N_SAMPLES = 400
+            
+
+## Datasets - Store or Load
+def create_dataset(ds_type):
+    f = eval("generate_ds_" + ds_type)
+    Path(SAVE_DS_DIR).mkdir(parents=True, exist_ok=True)
+    np.save(os.path.join(SAVE_DS_DIR, ds_type),f())
+
+def create_all_datasets():    
+    for ds_type in ["gauss", "square", "banana"]:
+        create_dataset(ds_type)
+
+def load_dataset(ds_type):
+    print("Loading dataset " + ds_type)
+    return np.load(os.path.join(SAVE_DS_DIR, ds_type) + ".npy")
+            
+
+
+## Generates predefined data
 def generate_ds_gauss():
     mean = np.array([-2, 2])
     cov = np.array([[1, 0.7], [0.7, 1]])  
@@ -24,7 +47,7 @@ def generate_ds_banana():
 
 
 
-
+## PDFs + Sampling
 # Gauss
 def pdf_gauss(x, mu, cov):
     assert(mu.ndim == 1 and len(mu) == len(cov) and (cov.ndim == 1 or cov.shape[0] == cov.shape[1]))
